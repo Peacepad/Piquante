@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
    
     const decodedToken = jwt.verify(
       token,
-      "MON_TOK3N_DID3NTIFICATION_3ST_INTROUVABL3"
+      process.env.DB_TOKEN
     );
     const userId = decodedToken.userId;
     if (req.body.userId && req.body.userId !== userId) {
