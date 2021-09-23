@@ -52,7 +52,9 @@ exports.modifySauce = (req, res, next) => {
     sauceObject = {
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-    }}
+    }
+  }
+  
     else {
       sauceObject = {
       ...req.body
@@ -83,7 +85,8 @@ exports.likeSauce = (req, res, next) => {
     Sauce.updateOne(
       { _id: req.params.id },
       {
-        ...req.body,
+        
+        
         $inc: { likes: +1 },
         $push: { usersLiked: req.body.userId },
       }
@@ -94,7 +97,8 @@ exports.likeSauce = (req, res, next) => {
     Sauce.updateOne(
       { _id: req.params.id },
       {
-        ...req.body,
+        
+        
         $inc: { dislikes: +1 },
         $push: { usersDisliked: req.body.userId },
       }
@@ -106,11 +110,12 @@ exports.likeSauce = (req, res, next) => {
       .findOne({ _id: req.params.id })
       .then((sauce) => {
         if (sauce.usersLiked.includes(req.body.userId)) {
-          // A tester !!
+
           Sauce.updateOne(
             { _id: req.params.id },
             {
-              ...req.body,
+              
+              
               $inc: { likes: -1 },
               $pull: { usersLiked: req.body.userId },
             }
@@ -122,7 +127,8 @@ exports.likeSauce = (req, res, next) => {
           Sauce.updateOne(
             { _id: req.params.id },
             {
-              ...req.body,
+              
+              
               $inc: { dislikes: -1 },
               $pull: { usersDisliked: req.body.userId },
             }
